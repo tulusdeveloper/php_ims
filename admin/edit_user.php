@@ -114,7 +114,7 @@ if(isset($_POST["submit1"]))
         //start of autorefresh
         setTimeout(function(){
             window.location="add_new_user.php";
-        },100);
+        },500);
         // End autorefresh
     </script>
     <?php
