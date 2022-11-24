@@ -72,8 +72,45 @@ include "../user/connection.php";
 
           </form>
         </div>
-      </div>
-     
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                    <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Username(s)</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $res=mysqli_query($link,"select * from user_registration");
+                while($row=mysqli_fetch_array($res))
+                {
+                    ?>
+                    <tr>
+                        <td><?php echo $row["id"]; ?></td>
+                        <td><?php echo $row["firstname"]; ?></td>
+                        <td><?php echo $row["lastname"]; ?></td>
+                        <td><?php echo $row["username"]; ?></td>
+                        <td><?php echo $row["role"]; ?></td>
+                        <td><?php echo $row["status"]; ?></td>
+                        <td><center><a class="btn btn-success" href="">Edit</a></center></td>
+                        <td><center><a class="btn btn-danger" href="delete_user.php?id=<?php echo $row["id"]; ?>">Delete</a></center></td>
+                </tr>
+                    <?php
+                }
+                ?>
+                
+                
+              </tbody>
+            </table>
+          </div>
      </div>
         </div>
 
@@ -99,12 +136,17 @@ if(isset($_POST["submit1"]))
         <?php
     }
     else{
-        mysqli_query($link,"insert into user_registration value(NULL,'$_POST[firstname]','$_POST[lastname]','$_POST[username]','$_POST[password]','$_POST[role]','$_POST[active]')");
+        mysqli_query($link,"insert into user_registration value(NULL,'$_POST[firstname]','$_POST[lastname]','$_POST[username]','$_POST[password]','$_POST[role]','active')");
 
         ?>
         <script type="text/javascript"> 
             document.getElementById("error").style.display="none";
             document.getElementById("success").style.display="block";
+            //start of autorefresh
+            setTimeout(function(){
+                window.location.href=window.location.href;
+            },100);
+            // End autorefresh
         </script>
         <?php
     }
