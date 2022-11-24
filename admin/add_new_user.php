@@ -100,7 +100,7 @@ include "../user/connection.php";
                         <td><?php echo $row["username"]; ?></td>
                         <td><?php echo $row["role"]; ?></td>
                         <td><?php echo $row["status"]; ?></td>
-                        <td><center><a class="btn btn-success" href="">Edit</a></center></td>
+                        <td><center><a class="btn btn-success" href="edit_user.php?id=<?php echo $row["id"]; ?>">Edit</a></center></td>
                         <td><center><a class="btn btn-danger" href="delete_user.php?id=<?php echo $row["id"]; ?>">Delete</a></center></td>
                 </tr>
                     <?php
