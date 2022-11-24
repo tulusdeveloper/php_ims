@@ -1,6 +1,7 @@
 
 <?php
 include "header.php";
+include "../user/connection.php";
 ?>
 
 <!--main-container-part-->
@@ -22,46 +23,53 @@ include "header.php";
           <h5>Add New User</h5>
         </div>
         <div class="widget-content nopadding">
-          <form action="#" method="get" class="form-horizontal">
+          <form name="form1" action="" method="post" class="form-horizontal">
             <div class="control-group">
               <label class="control-label">First Name :</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="First name" />
+                <input type="text" class="span11" placeholder="First name" name="firstname" />
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Last Name :</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="Last name" />
+                <input type="text" class="span11" placeholder="Last name" name="lastname" />
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Password input</label>
+              <label class="control-label">User Name :</label>
               <div class="controls">
-                <input type="password"  class="span11" placeholder="Enter Password"  />
+                <input type="text" class="span11" placeholder="User name" name="username" />
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Company info :</label>
+              <label class="control-label">Password</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="Company name" />
+                <input type="password"  class="span11" placeholder="Enter Password" name="password" />
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Description field:</label>
+              <label class="control-label">Select Role</label>
               <div class="controls">
-                <input type="text" class="span11" />
-                <span class="help-block">Description field</span> </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label">Message</label>
-              <div class="controls">
-                <textarea class="span11" ></textarea>
+                <select name="role" class="span11">
+                    <option>user</option>
+                    <option>admin</option>
+                </select>
               </div>
             </div>
+           
+            <div class="alert alert-danger" id="error" style="display:none;">
+                This Username Already Exist! Please Try Another.
+            </div>
+           
+
             <div class="form-actions">
-              <button type="submit" class="btn btn-success">Save</button>
+              <button type="submit" name="submit1" class="btn btn-success">Save</button>
             </div>
+            <div class="alert alert-success" id="success" style="display:none;">
+                User Added Successfully.
+            </div>
+
           </form>
         </div>
       </div>
@@ -73,6 +81,35 @@ include "header.php";
 </div>
 
 <!--end-main-container-part-->
+
+<?php
+if(isset($_POST["submit1"]))
+{
+    $count=0;
+    $res=mysqli_query($link,"select * from user_registration where username='$_POST[username]'");
+    $count=mysqli_num_rows($res);
+
+    if($count>0)
+    {
+        ?>
+        <script type="text/javascript">
+            document.getElementById("success").style.display="none";
+            document.getElementById("error").style.display="block";
+        </script>
+        <?php
+    }
+    else{
+        mysqli_query($link,"insert into user_registration value(NULL,'$_POST[firstname]','$_POST[lastname]','$_POST[username]','$_POST[password]','$_POST[role]','$_POST[active]')");
+
+        ?>
+        <script type="text/javascript"> 
+            document.getElementById("error").style.display="none";
+            document.getElementById("success").style.display="block";
+        </script>
+        <?php
+    }
+}
+?>
 
 <?php
 include "footer.php";
