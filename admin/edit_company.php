@@ -3,12 +3,12 @@
 include "header.php";
 include "../user/connection.php";
 $id=$_GET["id"];
-$unit="";
+$company_name="";
 
-$res=mysqli_query($link,"select * from units where id=$id");
+$res=mysqli_query($link,"select * from company_name where id=$id");
 while($row=mysqli_fetch_array($res))
 {
-   $unit=$row["unit"];
+   $company_name=$row["company_name"];
 }
 ?>
 
@@ -17,7 +17,7 @@ while($row=mysqli_fetch_array($res))
     <!--breadcrumbs-->
     <div id="content-header">
         <div id="breadcrumb"><a href="demo.php" class="tip-bottom"><i class="icon-home"></i>
-            Edit Unit</a></div>
+            Edit Company</a></div>
     </div>
     <!--End-breadcrumbs-->
 
@@ -28,14 +28,14 @@ while($row=mysqli_fetch_array($res))
         <div class="span12">
       <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-          <h5>Edit Unit</h5>
+          <h5>Edit Company</h5>
         </div>
         <div class="widget-content nopadding">
           <form name="form1" action="" method="post" class="form-horizontal">
             <div class="control-group">
-              <label class="control-label">Unit Name :</label>
+              <label class="control-label">Company Name :</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="Unit name" name="unitname" value="<?php echo $unit; ?>" />
+                <input type="text" class="span11" placeholder="Company name" name="companyname" value="<?php echo $company_name; ?>" />
               </div>
             </div>
             
@@ -44,7 +44,7 @@ while($row=mysqli_fetch_array($res))
               <button type="submit" name="submit1" class="btn btn-primary">Update</button>
             </div>
             <div class="alert alert-success" id="success" style="display:none;">
-                Unit Updated Successfully.
+                Company Updated Successfully.
             </div>
 
           </form>
@@ -61,13 +61,13 @@ while($row=mysqli_fetch_array($res))
 <?php
 if(isset($_POST["submit1"]))
 {
-    mysqli_query($link,"update units set unit='$_POST[unitname]' where id=$id") or die(mysqli_error($link));
+    mysqli_query($link,"update company_name set company_name='$_POST[companyname]' where id=$id") or die(mysqli_error($link));
     ?>
     <script type="text/javascript"> 
         document.getElementById("success").style.display="block";
         //start of autorefresh
         setTimeout(function(){
-            window.location="add_new_unit.php";
+            window.location="add_company.php";
         },500);
         // End autorefresh
     </script>

@@ -5,19 +5,19 @@ include "../user/connection.php";
 $id=$_GET["id"];
 $firstname="";
 $lastname="";
-$username="";
-$password="";
-$status="";
-$role="";
-$res=mysqli_query($link,"select * from user_registration where id=$id");
+$businessname="";
+$contact="";
+$address="";
+$city="";
+$res=mysqli_query($link,"select * from party_info where id=$id");
 while($row=mysqli_fetch_array($res))
 {
     $firstname=$row["firstname"];
     $lastname=$row["lastname"];
-    $username=$row["username"];
-    $password=$row["password"];
-    $status=$row["status"];
-    $role=$row["role"];
+    $businessname=$row["businessname"];
+    $contact=$row["contact"];
+    $address=$row["address"];
+    $city=$row["city"];
 }
 ?>
 
@@ -37,7 +37,7 @@ while($row=mysqli_fetch_array($res))
         <div class="span12">
       <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-          <h5>Edit User</h5>
+          <h5>Edit Party</h5>
         </div>
         <div class="widget-content nopadding">
           <form name="form1" action="" method="post" class="form-horizontal">
@@ -54,36 +54,30 @@ while($row=mysqli_fetch_array($res))
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">User Name :</label>
+              <label class="control-label">Business Name :</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="User name" name="username"readonly />
+                <input type="text" class="span11" placeholder="Business name" name="businessname" value="<?php echo $businessname; ?>" />
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Password</label>
+              <label class="control-label">Contact No :</label>
               <div class="controls">
-                <input type="password"  class="span11" placeholder="Enter Password" name="password" value="<?php echo $password; ?>" />
+                <input type="text" class="span11" placeholder="Contact No" name="contact" value="<?php echo $contact; ?>" />
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Select Role</label>
+              <label class="control-label">Address:</label>
               <div class="controls">
-                <select name="role" class="span11">
-                    <option <?php if($role=="user"){echo "selected";} ?>>user</option>
-                    <option <?php if($role=="admin"){echo "selected";} ?>>admin</option>
-                </select>
+                <input type="text" class="span11" placeholder="address" name="address" value="<?php echo $address; ?>" />
               </div>
             </div>
-
             <div class="control-group">
-              <label class="control-label">Select Status</label>
+              <label class="control-label">City :</label>
               <div class="controls">
-                <select name="status" class="span11">
-                    <option <?php if($status=="active"){echo "selected";} ?>>active</option>
-                    <option <?php if($status=="inactive"){echo "selected";} ?>>inactive</option>
-                </select>
+                <input type="text" class="span11" placeholder="city" name="city" value="<?php echo $city; ?>" />
               </div>
             </div>
+            
            
 
             <div class="form-actions">
@@ -107,13 +101,13 @@ while($row=mysqli_fetch_array($res))
 <?php
 if(isset($_POST["submit1"]))
 {
-    mysqli_query($link,"update user_registration set firstname='$_POST[firstname]',lastname='$_POST[lastname]',password='$_POST[password]',role='$_POST[role]',status='$_POST[status]' where id=$id") or die(mysqli_error($link));
+    mysqli_query($link,"update party_info set firstname='$_POST[firstname]',lastname='$_POST[lastname]',businessname='$_POST[businessname]',contact='$_POST[contact]',address='$_POST[address]',city='$_POST[city]' where id=$id") or die(mysqli_error($link));
     ?>
     <script type="text/javascript"> 
         document.getElementById("success").style.display="block";
         //start of autorefresh
         setTimeout(function(){
-            window.location="add_new_user.php";
+            window.location="add_new_party.php";
         },500);
         // End autorefresh
     </script>

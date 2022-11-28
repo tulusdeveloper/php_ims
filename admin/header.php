@@ -51,10 +51,22 @@
             <a href="demo.php"><i class="icon icon-home"></i><span>Dashboard</span></a>
         </li>
         <li>
-            <a href="add_new_user.php"><i class="icon icon-user"></i><span>Add New User</span></a>
+            <a href="add_new_user.php"><i class="icon icon-user"></i><span>Users</span></a>
         </li>
         <li>
-            <a href="add_new_unit.php"><i class="icon icon-user"></i><span>Add New Unit</span></a>
+            <a href="add_new_unit.php"><i class="icon icon-user"></i><span>Units</span></a>
+        </li>
+        <li>
+            <a href="add_new_party.php"><i class="icon icon-home"></i><span>Party Info</span></a>
+        </li>
+        <li>
+            <a href="add_products.php"><i class="icon icon-product"></i><span>Products</span></a>
+        </li>
+        <li>
+            <a href="add_company.php"><i class="icon icon-home"></i><span>Company</span></a>
+        </li>
+        <li>
+            <a href="purchase_master.php"><i class="icon icon-home"></i><span>Purchase Master</span></a>
         </li>
 
         <li class="submenu"><a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span
