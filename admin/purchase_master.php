@@ -43,8 +43,9 @@ include "../user/connection.php";
             </div>
 
             <div class="control-group" id="product_name">
+
               <label class="control-label">Select Product Name:</label>
-              <div class="controls" id="product_name">
+              <div class="controls" id="product_name_div">
                 <select class="span11">
                     <option>Select</option>
                 </select>
@@ -53,7 +54,7 @@ include "../user/connection.php";
 
             <div class="control-group">
               <label class="control-label">Select Unit:</label>
-              <div class="controls" id="unit">
+              <div class="controls" id="unit_div">
                 <select class="span11">
                     <option>Select</option>
                 </select>
@@ -129,11 +130,28 @@ include "../user/connection.php";
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
       if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
-        document.getElementById("product_name").innerHTML=xmlhttp.responseText;
+        document.getElementById("product_name_div").innerHTML=xmlhttp.responseText;
       }
     };
     xmlhttp.open("GET", "forajax/load_product_using_company.php?company_name="+company_name, true);
     xmlhttp.send();
+  }
+  function select_product(product_name,company_name)
+  {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+        document.getElementById("unit_div").innerHTML=xmlhttp.responseText;
+      }
+    };
+    xmlhttp.open("GET", "forajax/load_unit_using_products.php?product_name="+product_name+"$company_name="+company_name, true);
+    xmlhttp.send();
+
+    // alert(product_name + "==" + company_name);
+  }
+  function select_unit(unit,product_name,company_name)
+  {
+    alert(unit+"=="+product_name+"=="+company_name);
   }
 </script>
 
