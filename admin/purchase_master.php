@@ -27,7 +27,7 @@ include "../user/connection.php";
             <div class="control-group">
               <label class="control-label">Select Company:</label>
               <div class="controls">
-                <select class="span8" name="company_name" id="company_name">
+                <select class="span11" name="company_name" id="company_name" onchange="select_company(this.value)">
                     <option>Select</option>
                     <?php
                     $res=mysqli_query($link,"select * from company_name");
@@ -54,16 +54,16 @@ include "../user/connection.php";
             <div class="control-group">
               <label class="control-label">Select Unit:</label>
               <div class="controls" id="unit">
-                <select class="span8">
+                <select class="span11">
                     <option>Select</option>
                 </select>
                 </div>
             </div>
 
             <div class="control-group">
-              <label class="control-label">Enter Packing Size:</label>
+              <label class="control-label">Select Packing Size:</label>
               <div class="controls" id="packing_size">
-              <select class="span8">
+              <select class="span11">
                     <option>Select</option>
                 </select>
               </div>
@@ -81,16 +81,31 @@ include "../user/connection.php";
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Enter Party Name:</label>
+              <label class="control-label">Select Party Name:</label>
               <div class="controls" id="party_name">
-              <select class="span8">
+              <select class="span11">
                     <option>Select</option>
                 </select>
               </div>
             </div>
+            <div class="control-group">
+              <label class="control-label">Select Purchase Type:</label>
+              <div class="controls" id="purchase_type">
+              <select class="span11">
+                    <option>Cash</option>
+                    <option>Debit</option>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Enter Expiry Date:</label>
+              <div class="controls">
+                <input type="text" name="expiry_date" class="span11" placeholder="YYYY-MM-DD" required pattern="\d(4)-\d(2)-\(2)">
+              </div>
+            </div>
         
             <div class="form-actions">
-              <button type="submit" name="submit1" class="btn btn-success">Save</button>
+              <button type="submit" name="submit1" class="btn btn-success">Purchase Now</button>
             </div>
             <div class="alert alert-success" id="success" style="display:none;">
                 Purchase Inserted Successfully.
@@ -108,11 +123,25 @@ include "../user/connection.php";
 
 <!--end-main-container-part-->
 
+<script type="text/javascript">
+  function select_company(company_name)
+  {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+        document.getElementById("product_name").innerHTML=xmlhttp.responseText;
+      }
+    };
+    xmlhttp.open("GET", "forajax/load_product_using_company.php?company_name="+company_name, true);
+    xmlhttp.send();
+  }
+</script>
+
 <?php
 if(isset($_POST["submit1"]))
 {
     $count=0;
-    $res=mysqli_query($link,"select * from product where company_name='$_POST[company_name]' && product_name='$_POST[product_name]' && unit='$_POST[unit]' && packing_size='$_POST[packing_size]'") or die(mysqli_error($link));
+    $res=mysqli_query($link,"select * from products where company_name='$_POST[company_name]' && product_name='$_POST[product_name]' && unit='$_POST[unit]' && packing_size='$_POST[packing_size]'") or die(mysqli_error($link));
     $count=mysqli_num_rows($res);
 
     if($count>0)
@@ -125,7 +154,7 @@ if(isset($_POST["submit1"]))
         <?php
     }
     else{
-        mysqli_query($link,"insert into product value(NULL,'$_POST[company_name]','$_POST[product_name]','$_POST[unit]','$_POST[packing_size]')") or die(mysqli_error($link));
+        mysqli_query($link,"insert into products value(NULL,'$_POST[company_name]','$_POST[product_name]','$_POST[unit]','$_POST[packing_size]')") or die(mysqli_error($link));
 
         ?>
         <script type="text/javascript"> 

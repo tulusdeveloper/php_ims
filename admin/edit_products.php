@@ -7,7 +7,7 @@ $company_name="";
 $product_name="";
 $unit="";
 $packing_size="";
-$res=mysqli_query($link,"select * from product where id=$id");
+$res=mysqli_query($link,"select * from products where id=$id");
 while($row=mysqli_fetch_array($res))
 {
     $company_name=$row["company_name"];
@@ -111,7 +111,7 @@ while($row=mysqli_fetch_array($res))
 if(isset($_POST["submit1"]))
 {
     $count=0;
-    $res=mysqli_query($link,"select * from product where company_name='$_POST[company_name]' && product_name='$_POST[product_name]' && unit='$_POST[unit]' && packing_size='$_POST[packing_size]'") or die(mysqli_error($link));
+    $res=mysqli_query($link,"select * from products where company_name='$_POST[company_name]' && product_name='$_POST[product_name]' && unit='$_POST[unit]' && packing_size='$_POST[packing_size]'") or die(mysqli_error($link));
     $count=mysqli_num_rows($res);
 
     if($count>0)
@@ -124,8 +124,8 @@ if(isset($_POST["submit1"]))
         <?php
     }
     else{
-        // mysqli_query($link,"insert into product value(NULL,'$_POST[company_name]','$_POST[product_name]','$_POST[unit]','$_POST[packing_size]')") or die(mysqli_error($link));
-        mysqli_query($link,"update product set company_name='$_POST[company_name]',product_name='$_POST[product_name]',unit='$_POST[unit]',packing_size='$_POST[packing_size]' where id=$id")or die(mysqli_error($link));
+        // mysqli_query($link,"insert into products value(NULL,'$_POST[company_name]','$_POST[product_name]','$_POST[unit]','$_POST[packing_size]')") or die(mysqli_error($link));
+        mysqli_query($link,"update products set company_name='$_POST[company_name]',product_name='$_POST[product_name]',unit='$_POST[unit]',packing_size='$_POST[packing_size]' where id=$id")or die(mysqli_error($link));
         ?>
         <script type="text/javascript"> 
             document.getElementById("success").style.display="block";

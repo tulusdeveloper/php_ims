@@ -102,7 +102,7 @@ include "../user/connection.php";
               </thead>
               <tbody>
                 <?php
-                $res=mysqli_query($link,"select * from product");
+                $res=mysqli_query($link,"select * from products");
                 while($row=mysqli_fetch_array($res))
                 {
                     ?>
@@ -135,7 +135,7 @@ include "../user/connection.php";
 if(isset($_POST["submit1"]))
 {
     $count=0;
-    $res=mysqli_query($link,"select * from product where company_name='$_POST[company_name]' && product_name='$_POST[product_name]' && unit='$_POST[unit]' && packing_size='$_POST[packing_size]'") or die(mysqli_error($link));
+    $res=mysqli_query($link,"select * from products where company_name='$_POST[company_name]' && product_name='$_POST[product_name]' && unit='$_POST[unit]' && packing_size='$_POST[packing_size]'") or die(mysqli_error($link));
     $count=mysqli_num_rows($res);
 
     if($count>0)
@@ -148,7 +148,7 @@ if(isset($_POST["submit1"]))
         <?php
     }
     else{
-        mysqli_query($link,"insert into product value(NULL,'$_POST[company_name]','$_POST[product_name]','$_POST[unit]','$_POST[packing_size]')") or die(mysqli_error($link));
+        mysqli_query($link,"insert into products value(NULL,'$_POST[company_name]','$_POST[product_name]','$_POST[unit]','$_POST[packing_size]')") or die(mysqli_error($link));
 
         ?>
         <script type="text/javascript"> 
